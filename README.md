@@ -6,6 +6,7 @@ Before proceeding, you need to have the following intalled:
  - NPM 5.6.0 (this comes with nodejs)
  - PostgreSQL 9.6 (https://www.postgresql.org/download/)
 
+### Backend
 Now we need to install packages in server folder
 ```sh
 npm install
@@ -26,3 +27,9 @@ In the server folder, run:
 ```sh
 knex-migrations up
 ```
+And now we just run the backend with the following
+```sh
+npm start
+```
+### Frontend
+TODO

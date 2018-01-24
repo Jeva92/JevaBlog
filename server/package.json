@@ -1,0 +1,27 @@
+{
+  "name": "jevablog_backend",
+  "version": "1.0.0",
+  "description": "jevablog_backend",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/Jeva92/JevaBlog.git"
+  },
+  "author": "Verneri Ahola",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Jeva92/JevaBlog/issues"
+  },
+  "homepage": "https://github.com/Jeva92/JevaBlog#readme",
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "express": "^4.16.2",
+    "knex": "^0.14.2",
+    "knex-migrate": "^1.5.1",
+    "nodemon": "^1.14.11",
+    "pg": "^7.4.1"
+  }
+}
