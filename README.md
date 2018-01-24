@@ -11,7 +11,7 @@ Now we need to install packages in server folder
 ```sh
 npm install
 sudo npm install -g knex
-sudo npm install -g knex-migrations
+sudo npm install -g knex-migrate
 ```
 Next we need to create database
 ```sh
@@ -25,7 +25,7 @@ Where $username and $password are your own values, which you will also specify i
 After this we can init the database by running migrations.
 In the server folder, run:
 ```sh
-knex-migrations up
+knex-migrate up
 ```
 And now we just run the backend with the following
 ```sh
