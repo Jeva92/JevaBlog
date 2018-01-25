@@ -13,6 +13,7 @@ npm install
 sudo npm install -g knex
 sudo npm install -g knex-migrate
 ```
+Remember to rename .env.example to .env and fill needed fields and alter data if needed
 Next we need to create database
 ```sh
 PC:~$: sudo su - postgres
