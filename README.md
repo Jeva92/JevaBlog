@@ -4,7 +4,7 @@
 Before proceeding, you need to have the following intalled:
  - NodeJS 9.6.0 (https://nodejs.org/en/download/)
  - NPM 5.6.0 (this comes with nodejs)
- - PostgreSQL 9.6 (https://www.postgresql.org/download/)
+ - PostgreSQL 9.6 (https://www.postgresql.org/download/) with libpq-dev
 
 ### Backend
 Now we need to install packages in server folder
