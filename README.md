@@ -32,4 +32,11 @@ And now we just run the backend with the following
 npm start
 ```
 ### Frontend
-TODO
+Now we install packages in client folder
+```sh
+npm install
+```
+And then we start the frontend
+```sh
+npm start
+```
