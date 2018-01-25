@@ -19,7 +19,9 @@ export default function createRouter() {
 
   //Routes here
   router.get('/posts', Posts.posts);
+  //Auth
   router.post('/login', Auth.login);
+  router.post('/register', Auth.register);
 
   return router;
 };

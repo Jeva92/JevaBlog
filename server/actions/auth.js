@@ -11,34 +11,73 @@ function _generateToken(id) {
   return jwt.encode({ sub: id, iat: timestamp }, process.env.JWT_SECRET);
 }
 
+function _cipherEmail(email_) {
+  const cipherEmail = crypto.createCipher('aes192', process.env.CRYPTO_EMAIL_SECRET);
+  var email = cipherEmail.update(email_, 'utf8', 'hex');
+  email += cipherEmail.final('hex');
+  return email;
+}
+
+function _cipherPassword(password_) {
+  const cipherPassword = crypto.createCipher('aes192', process.env.CRYPTO_PASSWORD_SECRET);
+  var password = cipherPassword.update(password_, 'utf8', 'hex');
+  password += cipherPassword.final('hex');
+  return password;
+}
+
 export async function login(req, res) {
   if (!req.body.email) {
-    res.status(401).send('Email must be provided')
+    return res.status(422).send('Email must be provided')
   }
   if (!req.body.password) {
-    res.status(401).send('Password must be provided')
+    return res.status(422).send('Password must be provided')
   }
-  var email = req.body.email;
-  var password = req.body.password;
-  const cipherEmail = crypto.createCipher('aes192', process.env.CRYPTO_EMAIL_SECRET);
-  email = cipherEmail.update(email, 'utf8', 'hex');
-  email += cipherEmail.final('hex');
-  const cipherPassword = crypto.createCipher('aes192', process.env.CRYPTO_PASSWORD_SECRET);
-  password = cipherPassword.update(password, 'utf8', 'hex');
-  password += cipherPassword.final('hex');
+  var email = _cipherEmail(req.body.email);
+  var password = _cipherPassword(req.body.password);
   try {
-    var foundEmail = await knex('users').where('email', email)
-    const [id] = foundEmail;
+    var value = await knex('users').where('email', email)
+    const [id] = value;
     if (!id) {
-      res.status(401).send('Email not found');
+      return res.status(401).send('Email not found');
     } else {
       if (id.password != password) {
-        res.status(401).send('Wrong password');
+        return res.status(401).send('Wrong password');
       } else {
-        res.status(200).json({username: id.username, accountType: id.accountType, token: _generateToken(id.id) })
+        return res.status(200).json({username: id.username, accountType: id.accountType, token: _generateToken(id.id) })
       }
     }
   } catch(err) {
     console.log(err);
+    return res.status(500).send('Something broke in the backend')
+  }
+}
+
+export async function register(req, res) {
+  if (!req.body.username) {
+    return res.status(422).send('Username must be provided')
+  }
+  if (!req.body.email) {
+    return res.status(422).send('Email must be provided')
+  }
+  if (!req.body.password) {
+    return res.status(422).send('Password must be provided')
+  }
+  var username = req.body.username;
+  var email = _cipherEmail(req.body.email);
+  var password = _cipherPassword(req.body.password);
+  try {
+    var value = await knex('users').where('email', email)
+    const [id] = value;
+    if (id) {
+      return res.status(422).send('Email already exists')
+    } else if (id.username == username) {
+      return res.status(422).send('Username already exists')
+    } else {
+      await knex('users').insert({ 'username': username, 'password': password, 'email': email })
+      return res.status(200).send('User created, activation through email is required')
+    }
+  } catch(err) {
+    console.log(err)
+    return res.status(500).send('Something broke in the backend')
   }
 }
