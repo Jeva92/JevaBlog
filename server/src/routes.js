@@ -1,6 +1,7 @@
 import express from 'express';
 
 import * as Posts from '../actions/posts';
+import * as Auth from '../actions/auth'
 
 export default function createRouter() {
   const router = express.Router();
