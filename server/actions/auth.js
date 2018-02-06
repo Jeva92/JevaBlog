@@ -25,7 +25,7 @@ export async function login(req, res) {
       if (id.password != password) {
         return res.status(401).send('Wrong password');
       } else {
-        var loginSuccess = await {username: id.username, accountType: id.accountType, token: generateToken(id.id) };
+        var loginSuccess = await {username: id.username, accountType: id.accountType, jwttoken: generateToken(id.id, id.accountType) };
         return res.status(200).json(loginSuccess);
       }
     }
@@ -57,7 +57,8 @@ export async function register(req, res) {
       return res.status(422).send('Username already exists')
     } else {
       var [id] = await knex('users').insert({ 'username': username, 'password': password, 'email': email }).returning('id')
-      await _sendActivationEmail(req.body.email, _generateToken(id))
+      var [value] = await knex('users').where('id', id);
+      await sendActivationEmail(req.body.email, _generateToken(id, value.accountType))
       return res.status(200).send('User created, activation through email is required')
     }
   } catch(err) {

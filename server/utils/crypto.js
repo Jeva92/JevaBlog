@@ -1,4 +1,7 @@
 import crypto from 'crypto';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 function cipherEmail(email_) {
   const cipherEmail = crypto.createCipher('aes192', process.env.CRYPTO_EMAIL_SECRET);

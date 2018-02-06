@@ -1,7 +1,10 @@
 import express from 'express';
 
+import * as jwtAuth from '../utils/jwt';
 import * as Posts from '../actions/posts';
 import * as Auth from '../actions/auth'
+
+//const requireAuth = (accountType) = jwtAuth.requireAuth(accountType);
 
 export default function createRouter() {
   const router = express.Router();

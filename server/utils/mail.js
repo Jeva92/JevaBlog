@@ -1,3 +1,6 @@
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 function sendActivationEmail(email, token) {
   var transporter = nodemailer.createTransport({
