@@ -28,6 +28,7 @@
     "jwt-simple": "^0.5.1",
     "knex": "^0.14.2",
     "knex-migrate": "^1.5.1",
+    "nodemailer": "^4.4.2",
     "nodemon": "^1.14.11",
     "pg": "^7.4.1",
     "pg-native": "^2.2.0"
